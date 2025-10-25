@@ -9,6 +9,7 @@ interface ImagePreviewProps {
   onComplete?: () => void;
   isPaused?: boolean;
   annotations?: Annotation[];
+  onModalChange?: (isOpen: boolean) => void;
 }
 
 export function ImagePreview({
@@ -18,6 +19,7 @@ export function ImagePreview({
   onComplete,
   isPaused = false,
   annotations = [],
+  onModalChange,
 }: ImagePreviewProps) {
   const startTimeRef = useRef<number>(Date.now());
   const elapsedRef = useRef<number>(0);
@@ -70,7 +72,10 @@ export function ImagePreview({
         className="w-full h-full object-cover"
       />
       {annotations.length > 0 && (
-        <AnnotationOverlay annotations={annotations} />
+        <AnnotationOverlay
+          annotations={annotations}
+          onModalChange={onModalChange}
+        />
       )}
     </div>
   );

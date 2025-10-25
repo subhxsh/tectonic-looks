@@ -6,21 +6,25 @@ import { ProductCard } from "./product-card";
 interface AnnotationOverlayProps {
   annotations: Annotation[];
   onProductView?: (productId: string) => void;
+  onModalChange?: (isOpen: boolean) => void;
 }
 
 export function AnnotationOverlay({
   annotations,
   onProductView,
+  onModalChange,
 }: AnnotationOverlayProps) {
   const [selectedAnnotation, setSelectedAnnotation] =
     useState<Annotation | null>(null);
 
   const handleAnnotationClick = (annotation: Annotation) => {
     setSelectedAnnotation(annotation);
+    onModalChange?.(true);
   };
 
   const handleClose = () => {
     setSelectedAnnotation(null);
+    onModalChange?.(false);
   };
 
   const handleShop = (productId: string) => {

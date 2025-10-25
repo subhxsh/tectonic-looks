@@ -12,6 +12,7 @@ interface LookViewerProps {
 export function LookViewer({ look, isActive }: LookViewerProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [progress, setProgress] = useState(0);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleComplete = () => {
     if (currentIndex < look.previews.length - 1) {
@@ -88,8 +89,9 @@ export function LookViewer({ look, isActive }: LookViewerProps) {
           duration={5000}
           onProgress={setProgress}
           onComplete={handleComplete}
-          isPaused={!isActive}
+          isPaused={!isActive || isModalOpen}
           annotations={currentPreview.annotations}
+          onModalChange={setIsModalOpen}
         />
       ) : (
         <VideoPreview
@@ -97,7 +99,7 @@ export function LookViewer({ look, isActive }: LookViewerProps) {
           videoUrl={currentPreview.url}
           onProgress={setProgress}
           onComplete={handleComplete}
-          isPaused={!isActive}
+          isPaused={!isActive || isModalOpen}
         />
       )}
     </div>
